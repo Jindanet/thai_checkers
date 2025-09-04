@@ -1,0 +1,13 @@
+RewriteEngine On
+RewriteBase /
+
+# 👉 เพิ่ม: รองรับ /ai หรือ /ai/extreme
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ai/([^/]+)$ ai.php?diff=$1 [L,QSA]
+RewriteRule ^ai$ ai.php [L,QSA]
+
+# กฎเดิมของคุณ (คงไว้ตามต้นฉบับ)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.+)$ index.php?path=$1 [QSA,L]
