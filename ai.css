@@ -1,0 +1,1029 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Fredoka:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+body {
+    font-family: 'Fredoka', 'Kanit', sans-serif;
+    background: linear-gradient(135deg, #FFE5F1, #E5F3FF, #F0E5FF, #FFFACD, #E5FFEF, #FFF0E5);
+    background-size: 400% 400%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* เฉพาะ desktop ถึงจะใช้แอนิเมชัน gradient */
+@media (min-width: 768px) and (hover: hover) {
+    body {
+        animation: gradientShift 12s ease infinite;
+    }
+    
+    @keyframes gradientShift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+}
+
+/* Mobile: ใช้สีเดียวเพื่อประหยัดการประมวลผล */
+@media (max-width: 767px) {
+    body {
+        background: #F0F8FF;
+        animation: none;
+    }
+}
+
+.game-container {
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 30px;
+    padding: 35px;
+    box-shadow:
+        0 25px 50px rgba(0, 0, 0, 0.08),
+        0 0 0 1px rgba(255, 255, 255, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    max-width: 720px;
+    width: 100%;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+/* Mobile: ลดการใช้ backdrop-filter และเงา */
+@media (max-width: 767px) {
+    .game-container {
+        backdrop-filter: none;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.title {
+    font-size: 2.8em;
+    font-weight: 700;
+    background: linear-gradient(45deg, #FF6B9D, #4FACFE, #9B59B6, #FFA726, #66BB6A);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    font-family: 'Fredoka', sans-serif;
+    letter-spacing: -1px;
+}
+
+/* Desktop เท่านั้น: แอนิเมชัน title */
+@media (min-width: 768px) and (hover: hover) {
+    .title {
+        animation: titleGlow 4s ease-in-out infinite;
+    }
+    
+    @keyframes titleGlow {
+        0%, 100% { filter: brightness(1); }
+        50% { filter: brightness(1.2); }
+    }
+}
+
+/* Mobile: ทำให้ title เล็กลง */
+@media (max-width: 767px) {
+    .title {
+        font-size: 1.8em;
+        animation: none;
+        filter: none;
+    }
+}
+
+.subtitle {
+    font-size: 1.2em;
+    color: #666;
+    margin-bottom: 25px;
+    opacity: 0.9;
+    font-weight: 400;
+    font-family: 'Kanit', sans-serif;
+}
+
+@media (max-width: 767px) {
+    .subtitle {
+        font-size: 1em;
+    }
+}
+
+.ai-difficulty-badge {
+    display: inline-block;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 1em;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Desktop เท่านั้น: แอนิเมชัน pulse */
+@media (min-width: 768px) and (hover: hover) {
+    .ai-difficulty-badge {
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+}
+
+/* Mobile: ไม่มีแอนิเมชัน */
+@media (max-width: 767px) {
+    .ai-difficulty-badge {
+        animation: none;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+}
+
+.difficulty-easy {
+    background: linear-gradient(135deg, #66BB6A, #4CAF50);
+    color: white;
+}
+
+.difficulty-medium {
+    background: linear-gradient(135deg, #FFB74D, #FF9800);
+    color: white;
+}
+
+.difficulty-hard {
+    background: linear-gradient(135deg, #FF6B9D, #FF4757);
+    color: white;
+}
+
+.difficulty-extreme {
+    background: linear-gradient(135deg, #9B59B6, #8E44AD);
+    color: white;
+}
+
+/* Desktop เท่านั้น: extreme difficulty glow */
+@media (min-width: 768px) and (hover: hover) {
+    .difficulty-extreme {
+        animation: pulse 1s infinite, glow 2s infinite;
+    }
+    
+    @keyframes glow {
+        0%, 100% { box-shadow: 0 4px 15px rgba(155, 89, 182, 0.3); }
+        50% { box-shadow: 0 4px 30px rgba(155, 89, 182, 0.6); }
+    }
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding: 20px;
+    background: linear-gradient(135deg, #FF6B9D, #4FACFE, #9B59B6);
+    border-radius: 20px;
+    color: white;
+    box-shadow:
+         0 15px 35px rgba(79, 172, 254, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Mobile: ลดความซับซ้อนของ game-info */
+@media (max-width: 767px) {
+    .game-info {
+        padding: 15px;
+        box-shadow: 0 5px 15px rgba(79, 172, 254, 0.2);
+        background: linear-gradient(135deg, #FF6B9D, #4FACFE);
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+.player-info {
+    text-align: center;
+    flex: 1;
+}
+
+.player-name {
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-size: 1.1em;
+}
+
+.pieces-count {
+    font-size: 0.9em;
+    opacity: 0.9;
+}
+
+.current-turn {
+    text-align: center;
+    flex: 1;
+    font-weight: 700;
+    font-size: 1.5em;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Desktop เท่านั้น: turn glow animation */
+@media (min-width: 768px) and (hover: hover) {
+    .current-turn {
+        animation: turnGlow 3s infinite;
+    }
+    
+    @keyframes turnGlow {
+        0%, 100% {
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+        }
+        50% {
+            background: rgba(255, 255, 255, 0.35);
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
+        }
+    }
+}
+
+/* Mobile: ไม่มีแอนิเมชันและ backdrop-filter */
+@media (max-width: 767px) {
+    .current-turn {
+        animation: none;
+        backdrop-filter: none;
+        background: rgba(255, 255, 255, 0.3);
+        font-size: 1.2em;
+    }
+}
+
+.board {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    border: 3px solid #9B59B6;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow:
+        0 15px 40px rgba(155, 89, 182, 0.3),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+/* Mobile: ลดขนาด board และเงา */
+@media (max-width: 767px) {
+    .board {
+        max-width: 320px;
+        border-width: 2px;
+        box-shadow: 0 8px 20px rgba(155, 89, 182, 0.2);
+    }
+}
+
+.row {
+    display: flex;
+}
+
+.cell {
+    width: 62.5px;
+    height: 62.5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* Desktop เท่านั้น: transition และ hover */
+@media (min-width: 768px) and (hover: hover) {
+    .cell {
+        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
+    .cell:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* Mobile: ขนาดเล็กลงและไม่มี transition */
+@media (max-width: 767px) {
+    .cell {
+        width: 40px;
+        height: 40px;
+        transition: none;
+    }
+}
+
+.cell.light {
+    background: #FFFFFF;
+}
+
+
+.cell.selected {
+    background: linear-gradient(135deg, #FFD700, #FFA726) !important;
+    box-shadow:
+        inset 0 0 20px rgba(255, 215, 0, 0.6),
+        0 0 30px rgba(255, 167, 38, 0.5);
+}
+
+/* Desktop เท่านั้น: selected animation */
+@media (min-width: 768px) and (hover: hover) {
+    .cell.selected {
+        animation: selectedPulse 1.5s infinite;
+    }
+    
+    @keyframes selectedPulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.03); }
+    }
+}
+
+/* Mobile: ไม่มีแอนิเมชันและลดเงา */
+@media (max-width: 767px) {
+    .cell.selected {
+        animation: none;
+        box-shadow: inset 0 0 10px rgba(255, 215, 0, 0.6);
+        transform: none !important;
+    }
+}
+
+.cell.valid-move {
+    background: linear-gradient(135deg, #66BB6A, #4CAF50) !important;
+    box-shadow: 0 0 20px rgba(102, 187, 106, 0.6);
+}
+
+/* Desktop เท่านั้น: valid move animation */
+@media (min-width: 768px) and (hover: hover) {
+    .cell.valid-move {
+        animation: validMovePulse 1.5s infinite;
+    }
+    
+    @keyframes validMovePulse {
+        0%, 100% {
+            opacity: 0.85;
+            box-shadow: 0 0 20px rgba(102, 187, 106, 0.6);
+        }
+        50% {
+            opacity: 1;
+            box-shadow: 0 0 30px rgba(102, 187, 106, 0.8);
+        }
+    }
+}
+
+/* Mobile: ไม่มีแอนิเมชันและลดเงา */
+@media (max-width: 767px) {
+    .cell.valid-move {
+        animation: none;
+        box-shadow: 0 0 10px rgba(102, 187, 106, 0.4);
+        opacity: 0.9;
+    }
+}
+
+.piece {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    box-shadow:
+        0 6px 12px rgba(0, 0, 0, 0.2),
+        inset 0 2px 4px rgba(255, 255, 255, 0.4);
+}
+
+/* Desktop เท่านั้น: piece transition */
+@media (min-width: 768px) and (hover: hover) {
+    .piece {
+        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
+    .piece:hover {
+        transform: scale(1.15);
+        box-shadow:
+            0 8px 16px rgba(0, 0, 0, 0.3),
+            0 0 20px rgba(255, 107, 157, 0.4);
+    }
+}
+
+/* Mobile: ขนาดเล็กลงและไม่มี transition */
+@media (max-width: 767px) {
+    .piece {
+        width: 32px;
+        height: 32px;
+        transition: none;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+        border-width: 1px;
+    }
+    
+    .piece:active {
+        transform: scale(0.95);
+    }
+}
+
+.piece.red {
+    background: linear-gradient(135deg, #FF6B6B, #FF4757, #FF3838);
+    border-color: #FF3838;
+}
+
+.piece.black {
+    background: linear-gradient(135deg, #2C3E50, #34495E, #4A5568);
+    border-color: #2C3E50;
+}
+
+.piece.king {
+    border-width: 3px;
+    border-color: #FF6B9D;
+    box-shadow:
+        0 0 20px rgba(255, 107, 157, 0.7),
+        0 6px 12px rgba(0, 0, 0, 0.2),
+        inset 0 2px 4px rgba(255, 255, 255, 0.4);
+}
+
+/* Desktop เท่านั้น: king glow animation */
+@media (min-width: 768px) and (hover: hover) {
+    .piece.king {
+        animation: kingGlow 3s ease-in-out infinite;
+    }
+    
+    @keyframes kingGlow {
+        0%, 100% { box-shadow: 0 0 20px rgba(255, 107, 157, 0.7), 0 6px 12px rgba(0, 0, 0, 0.2); }
+        50% { box-shadow: 0 0 30px rgba(255, 107, 157, 0.9), 0 6px 12px rgba(0, 0, 0, 0.2); }
+    }
+}
+
+/* Mobile: ลด border width และเงาของ king */
+@media (max-width: 767px) {
+    .piece.king {
+        border-width: 2px;
+        box-shadow: 0 0 10px rgba(255, 107, 157, 0.5), 0 3px 6px rgba(0, 0, 0, 0.2);
+        animation: none;
+    }
+}
+
+.piece.king::after {
+    content: '👑';
+    font-size: 20px;
+    filter: drop-shadow(0 0 5px rgba(255, 107, 157, 0.8));
+}
+
+@media (max-width: 767px) {
+    .piece.king::after {
+        font-size: 14px;
+        filter: none;
+    }
+}
+
+.controls {
+    text-align: center;
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 767px) {
+    .controls {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+}
+
+.btn {
+    background: linear-gradient(135deg, #FF6B9D, #4FACFE);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 30px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 8px;
+    font-family: 'Fredoka', sans-serif;
+    box-shadow:
+        0 8px 20px rgba(79, 172, 254, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Desktop เท่านั้น: button animations */
+@media (min-width: 768px) and (hover: hover) {
+    .btn {
+        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
+    .btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.6s;
+    }
+    
+    .btn:hover::before {
+        left: 100%;
+    }
+    
+    .btn:hover {
+        transform: translateY(-4px) scale(1.02);
+        box-shadow:
+            0 12px 30px rgba(79, 172, 254, 0.35),
+            inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        background: linear-gradient(135deg, #4FACFE, #FF6B9D);
+    }
+    
+    .btn:active {
+        transform: translateY(-2px) scale(1.01);
+    }
+}
+
+/* Mobile: ไม่มี hover effects และ animations */
+@media (max-width: 767px) {
+    .btn {
+        width: 100%;
+        max-width: 300px;
+        margin: 4px 0;
+        transition: none;
+        box-shadow: 0 4px 12px rgba(79, 172, 254, 0.2);
+    }
+    
+    .btn::before {
+        display: none;
+    }
+    
+    .btn:active {
+        transform: scale(0.98);
+        opacity: 0.8;
+    }
+}
+
+.btn.primary {
+    background: linear-gradient(135deg, #66BB6A, #4CAF50);
+}
+
+@media (min-width: 768px) and (hover: hover) {
+    .btn.primary:hover {
+        background: linear-gradient(135deg, #4CAF50, #66BB6A);
+    }
+}
+
+.btn.danger {
+    background: linear-gradient(135deg, #FF6B6B, #FF4757);
+}
+
+@media (min-width: 768px) and (hover: hover) {
+    .btn.danger:hover {
+        background: linear-gradient(135deg, #FF4757, #FF3838);
+    }
+}
+
+.btn.active {
+    background: linear-gradient(135deg, #FF6B6B, #FF4757) !important;
+}
+
+/* Desktop เท่านั้น: active button pulse */
+@media (min-width: 768px) and (hover: hover) {
+    .btn.active {
+        animation: pulse 1.5s infinite;
+    }
+}
+
+.auto-play-indicator {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #FF6B6B, #FF4757);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9em;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+    display: none;
+    z-index: 1000;
+}
+
+/* Desktop เท่านั้น: auto-play indicator pulse */
+@media (min-width: 768px) and (hover: hover) {
+    .auto-play-indicator {
+        animation: pulse 2s infinite;
+    }
+}
+
+/* Mobile: ไม่มีแอนิเมชัน */
+@media (max-width: 767px) {
+    .auto-play-indicator {
+        top: 10px;
+        right: 10px;
+        padding: 8px 15px;
+        font-size: 0.8em;
+        animation: none;
+        box-shadow: 0 2px 8px rgba(255, 107, 107, 0.2);
+    }
+}
+
+.auto-play-indicator.show {
+    display: block;
+}
+
+.status {
+    text-align: center;
+    margin-top: 20px;
+    padding: 15px;
+    background: linear-gradient(135deg, #FFF8DC, #F0F8FF);
+    border-radius: 15px;
+    font-weight: 600;
+    color: #333333;
+    border: 2px solid rgba(255, 182, 193, 0.3);
+    box-shadow: 0 5px 15px rgba(255, 182, 193, 0.1);
+}
+
+.status.winner {
+    background: linear-gradient(135deg, #FFB6C1, #DDA0DD);
+    color: white;
+    box-shadow: 0 10px 30px rgba(255, 182, 193, 0.5);
+}
+
+/* Desktop เท่านั้น: winner celebration */
+@media (min-width: 768px) and (hover: hover) {
+    .status.winner {
+        animation: celebration 0.5s ease-in-out;
+    }
+    
+    @keyframes celebration {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+}
+
+/* Mobile: ไม่มีแอนิเมชัน */
+@media (max-width: 767px) {
+    .status {
+        padding: 12px;
+        box-shadow: 0 3px 10px rgba(255, 182, 193, 0.1);
+    }
+    
+    .status.winner {
+        animation: none;
+        box-shadow: 0 5px 15px rgba(255, 182, 193, 0.3);
+    }
+}
+
+.move-history {
+    margin-top: 20px;
+    padding: 15px;
+    background: linear-gradient(135deg, #FFF8DC, #F0F8FF);
+    border-radius: 15px;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 2px solid rgba(255, 182, 193, 0.3);
+    box-shadow: inset 0 2px 10px rgba(255, 182, 193, 0.1);
+}
+
+@media (max-width: 767px) {
+    .move-history {
+        padding: 12px;
+        max-height: 150px;
+        box-shadow: inset 0 1px 5px rgba(255, 182, 193, 0.1);
+    }
+}
+
+.move-history h3 {
+    margin-bottom: 10px;
+    color: #333333;
+    text-align: center;
+}
+
+.move-list {
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+@media (max-width: 767px) {
+    .move-list {
+        font-size: 0.8em;
+    }
+}
+
+.move-item {
+    margin-bottom: 5px;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    border-left: 4px solid #FFB6C1;
+}
+
+/* Desktop เท่านั้น: move item hover */
+@media (min-width: 768px) and (hover: hover) {
+    .move-item {
+        transition: all 0.3s ease;
+    }
+    
+    .move-item:hover {
+        background: rgba(255, 255, 255, 1);
+        transform: translateX(5px);
+    }
+}
+
+/* Mobile: ไม่มี hover effects */
+@media (max-width: 767px) {
+    .move-item {
+        padding: 6px 10px;
+        transition: none;
+    }
+}
+
+.move-item.red {
+    border-left-color: #FF6B6B;
+}
+
+.move-item.black {
+    border-left-color: #4A5568;
+}
+
+.ai-thinking {
+    display: none;
+    text-align: center;
+    padding: 10px;
+    margin-top: 10px;
+    background: linear-gradient(135deg, rgba(255, 107, 157, 0.1), rgba(79, 172, 254, 0.1));
+    border-radius: 15px;
+    font-weight: 500;
+    color: #666;
+}
+
+/* Desktop เท่านั้น: thinking animation */
+@media (min-width: 768px) and (hover: hover) {
+    .ai-thinking {
+        animation: thinkingPulse 1.5s infinite;
+    }
+    
+    @keyframes thinkingPulse {
+        0%, 100% { opacity: 0.6; }
+        50% { opacity: 1; }
+    }
+}
+
+/* Mobile: ไม่มีแอนิเมชัน */
+@media (max-width: 767px) {
+    .ai-thinking {
+        animation: none;
+        opacity: 0.8;
+    }
+}
+
+.ai-thinking.show {
+    display: block;
+}
+
+/* ลบ sparkle animation ใน mobile เพื่อประหยัดแบตเตอรี่ */
+@media (min-width: 768px) and (hover: hover) {
+    .sparkle {
+        position: absolute;
+        pointer-events: none;
+        width: 6px;
+        height: 6px;
+        background: radial-gradient(circle, #FFD700, transparent);
+        border-radius: 50%;
+        animation: sparkle 2s infinite;
+    }
+    
+    @keyframes sparkle {
+        0%, 100% {
+            transform: scale(0) rotate(0deg);
+            opacity: 0;
+        }
+        50% {
+            transform: scale(1) rotate(180deg);
+            opacity: 1;
+        }
+    }
+}
+
+/* Mobile: ไม่มี sparkle */
+@media (max-width: 767px) {
+    .sparkle {
+        display: none;
+    }
+}
+
+.shimmer {
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(0, 206, 209, 0.8),
+        transparent
+    );
+    background-size: 200% 100%;
+}
+
+/* Desktop เท่านั้น: shimmer animation */
+@media (min-width: 768px) and (hover: hover) {
+    .shimmer {
+        animation: shimmer 300s infinite ease-in-out;
+    }
+    
+    @keyframes shimmer {
+        0% {
+            background-position: -200% 0;
+        }
+        100% {
+            background-position: 200% 0;
+        }
+    }
+}
+
+/* Mobile: ไม่มี shimmer animation */
+@media (max-width: 767px) {
+    .shimmer {
+        animation: none;
+        background: linear-gradient(90deg, transparent, rgba(0, 206, 209, 0.3), transparent);
+    }
+}
+
+/* Performance optimizations for all devices */
+* {
+    will-change: auto;
+}
+
+/* เฉพาะ elements ที่จำเป็นต้อง animate */
+@media (min-width: 768px) and (hover: hover) {
+    .title,
+    .ai-difficulty-badge,
+    .current-turn,
+    .cell.selected,
+    .cell.valid-move,
+    .piece.king,
+    .btn,
+    .auto-play-indicator {
+        will-change: transform, opacity, box-shadow;
+    }
+}
+
+/* ปิด hardware acceleration ใน mobile เพื่อประหยัดแบตเตอรี่ */
+@media (max-width: 767px) {
+    * {
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+        will-change: auto;
+    }
+    
+    .cell, .piece, .btn {
+        transform: none !important;
+        -webkit-transform: none !important;
+    }
+}
+
+/* Anti-lag optimizations */
+.board, .game-container {
+    contain: layout style paint;
+}
+
+@media (max-width: 767px) {
+    .board, .game-container, .move-history {
+        contain: layout;
+    }
+}
+
+/* Smooth scrolling for move history */
+.move-list {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* ป้องกัน layout shift */
+.cell {
+    flex-shrink: 0;
+}
+
+.piece {
+    flex-shrink: 0;
+}
+
+/* เพิ่มประสิทธิภาพการ render ใน mobile */
+@media (max-width: 767px) {
+    .game-container {
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+    }
+    
+    /* ลด complexity ของ gradients ใน mobile */
+    .game-info {
+        background: #4FACFE;
+    }
+    
+    .btn {
+        background: #4FACFE;
+    }
+    
+    .btn.primary {
+        background: #4CAF50;
+    }
+    
+    .btn.danger {
+        background: #FF4757;
+    }
+    
+    .piece.red {
+        background: #FF4757;
+    }
+    
+    .piece.black {
+        background: #34495E;
+    }
+    
+    .status {
+        background: #F0F8FF;
+    }
+    
+    .status.winner {
+        background: #FFB6C1;
+    }
+    
+    .move-history {
+        background: #F0F8FF;
+    }
+}
+
+/* เพิ่ม anti-aliasing เฉพาะที่จำเป็น */
+.piece, .btn {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ปรับปรุง touch response ใน mobile */
+@media (max-width: 767px) {
+    .cell, .piece, .btn {
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+        tap-highlight-color: rgba(0, 0, 0, 0.1);
+    }
+    
+    .cell:active, .piece:active {
+        background-color: rgba(255, 255, 255, 0.2) !important;
+    }
+}
+
+/* เพิ่มความเสถียรในการ render */
+.board {
+    image-rendering: crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+}
+
+/* ป้องกัน memory leaks จาก animations */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* เพิ่มประสิทธิภาพ scrolling */
+@supports (scrollbar-width: thin) {
+    .move-list {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(155, 89, 182, 0.3) transparent;
+    }
+}
+
+@supports (selector(::-webkit-scrollbar)) {
+    .move-list::-webkit-scrollbar {
+        width: 6px;
+    }
+    
+    .move-list::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    
+    .move-list::-webkit-scrollbar-thumb {
+        background: rgba(155, 89, 182, 0.3);
+        border-radius: 3px;
+    }
+    
+    .move-list::-webkit-scrollbar-thumb:hover {
+        background: rgba(155, 89, 182, 0.5);
+    }
+}
