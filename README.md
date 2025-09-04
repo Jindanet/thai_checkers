@@ -67,7 +67,7 @@ A modern, responsive Thai Checkers game built with PHP, MySQL, and vanilla JavaS
 
 1. **Clone/Download the project**
    ```bash
-   git clone https://github.com/your-username/thai-checkers.git
+   git clone https://github.com/jindanet/thai-checkers.git
    cd thai-checkers
    ```
 
@@ -373,4 +373,4 @@ SOFTWARE.
 - **Database Tables**: 8+ for comprehensive statistics
 - **Authentication**: Secure user management system
 
-**Ready to play? 🎮 [Visit the game](https://your-domain.com) and start your Thai Checkers adventure!**
+**Ready to play? 🎮 [Visit the game](https://checkers.42web.io) and start your Thai Checkers adventure!**
