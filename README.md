@@ -373,4 +373,4 @@ SOFTWARE.
 - **Database Tables**: 8+ for comprehensive statistics
 - **Authentication**: Secure user management system
 
-**Ready to play? 🎮 [Visit the game](https://checkers.42web.io) and start your Thai Checkers adventure!**
+**Ready to play? 🎮 [Visit the game](https://checkers.iws.lol/login) and start your Thai Checkers adventure!**
