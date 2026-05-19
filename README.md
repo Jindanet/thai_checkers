@@ -73,7 +73,7 @@ A modern, responsive Thai Checkers game built with PHP, MySQL, and vanilla JavaS
 
 2. **Database Setup**
    - Create a new MySQL database
-   - Import the database structure from `[Database File]/if0_39276300_db.sql`
+   - Import the example database from `[Database File]/example.sql`
    - Update database credentials in `db.php`:
    ```php
    $db_host = 'localhost';
@@ -137,7 +137,7 @@ RewriteRule ^(.*)$ index.php [QSA,L]
 ```
 thai-checkers/
 ├── 📁 [Database File]/
-│   └── if0_39276300_db.sql      # Database schema and data
+│   └── example.sql              # Safe example schema and seed data
 ├── 📄 index.php                 # Main router and application entry point
 ├── 📄 home.php                  # Homepage with game menu
 ├── 📄 friend.php                # Multiplayer game interface

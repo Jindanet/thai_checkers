@@ -1,0 +1,15 @@
+# Database dumps and local database files
+\[Database File\]/*
+*.sql
+*.dump
+*.sqlite
+*.sqlite3
+*.db
+*.bak
+!\[Database File\]/
+!\[Database File\]/example.sql
+
+# Local environment secrets
+.env
+.env.*
+!.env.example
